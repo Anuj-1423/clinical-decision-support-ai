@@ -87,10 +87,22 @@ def create_app():
     return app
 
 
+def create_app():
+    app = Flask(
+        __name__,
+        template_folder="../frontend/templates",
+        static_folder="../frontend/static"
+    )
+
+    # config, db, oauth, blueprints...
+    return app
+
+
+# REQUIRED FOR GUNICORN
+app = create_app()
+
+
+# OPTIONAL: for local development only
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
-    app = create_app()
-    app.run(host="0.0.0.0", port=port)
-
-
+    app.run(host="0.0.0.0", port=port, debug=True)
