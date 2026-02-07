@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, session, redirect, url_for
-from models.prediction_history import PredictionHistory
-from models.user import User
-from database import db
+from backend.models.prediction_history import PredictionHistory
+from backend.models.user import User
+from backend.extensions import oauth
+from backend.database import db
 from sqlalchemy import func
 
 

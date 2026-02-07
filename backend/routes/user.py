@@ -1,15 +1,16 @@
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for, session
 from database import db
-from models.user import User
 import os
 import uuid
 from werkzeug.utils import secure_filename
 
+from backend.models.user import User
+from backend.models.prediction_history import PredictionHistory
 
 # === IMPORT ML SERVICES ===
-from services.phase1_service import predict_risk
-from services.phase2_service import compare_treatment
-from models.prediction_history import PredictionHistory
+from backend.services.phase1_service import predict_risk
+from backend.services.phase2_service import compare_treatment
+
 
 
 user_bp = Blueprint("user", __name__, url_prefix="/user")

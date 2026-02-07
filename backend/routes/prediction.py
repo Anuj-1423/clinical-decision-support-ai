@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify, session
-from services.phase1_service import predict_risk
-from services.phase2_service import compare_treatment
-from database import db
-from models.prediction_history import PredictionHistory
+from backend.services.phase1_service import predict_risk
+from backend.services.phase2_service import compare_treatment
+from backend.extensions import oauth
+from backend.database import db
+from backend.models.prediction_history import PredictionHistory
 
 prediction_bp = Blueprint("prediction", __name__, url_prefix="/predict")
 

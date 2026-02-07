@@ -1,12 +1,23 @@
-from flask import Flask
-from database import db
-from extensions import oauth   # ✅ SAME INSTANCE
+from backend.routes.public import public_bp
+from backend.routes.auth import auth_bp
+from backend.routes.user import user_bp
+from backend.routes.admin import admin_bp
+from backend.routes.prediction import prediction_bp
 import os
+from flask import Flask
+from backend.database import db
+from backend.extensions import oauth
+from backend.routes.public import public_bp
+from backend.routes.auth import auth_bp
+from backend.routes.user import user_bp
+from backend.routes.admin import admin_bp
+from backend.routes.prediction import prediction_bp
+
 
 # ===============================
 # Config
 # ===============================
-from config import (
+from backend.config import (
     SECRET_KEY,
     SQLALCHEMY_DATABASE_URI,
     SQLALCHEMY_TRACK_MODIFICATIONS,
@@ -17,12 +28,6 @@ from config import (
 # ===============================
 # Blueprints
 # ===============================
-from routes.public import public_bp
-from routes.auth import auth_bp
-from routes.user import user_bp
-from routes.admin import admin_bp
-from routes.prediction import prediction_bp
-
 
 def create_app():
     app = Flask(

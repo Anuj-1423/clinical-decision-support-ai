@@ -1,12 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
-from database import db
-from services.auth import hash_password, verify_password
-from models.user import User
-from extensions import oauth
+from backend.extensions import oauth
+from backend.database import db
 import secrets
 from flask import session, redirect, url_for
 
-
+from backend.models.user import User
+from backend.services.auth import hash_password, verify_password
 
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
@@ -95,8 +94,8 @@ def user_login():
 import secrets
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from database import db
-from models.user import User
-from extensions import oauth
+from backend.models.user import User
+from backend.extensions import oauth
 
 
 # ===============================
