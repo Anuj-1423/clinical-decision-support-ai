@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us | Medica</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <style>
+    .about-container {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 0 30px;
+      font-family: "Segoe UI", sans-serif;
+      color: #1f2937;
+    }
+
+    .about-hero {
+      margin-bottom: 50px;
+    }
+
+    .about-hero h1 {
+      font-size: 42px;
+      color: #0b5ed7;
+      margin-bottom: 14px;
+    }
+
+    .about-hero p {
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 750px;
+      color: #374151;
+    }
+
+    .about-section {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    .about-card {
+      background: #f9fbff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .about-card h3 {
+      color: #0b5ed7;
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .about-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #374151;
+    }
+
+    .about-values {
+      margin-top: 60px;
+      background: #0b5ed7;
+      color: #ffffff;
+      padding: 50px;
+      border-radius: 20px;
+    }
+
+    .about-values h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .about-values ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .about-values li {
+      font-size: 16px;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .about-section {
+        grid-template-columns: 1fr;
+      }
+
+      .about-hero h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+{% include "layout/header.html" %}
+
+<div class="about-container">
+
+  <!-- HERO -->
+  <div class="about-hero">
+    <h1>About Medica</h1>
+    <p>
+      Medica is an AI-powered Clinical Decision Support System designed to assist
+      healthcare professionals in assessing patient risk, improving diagnostic
+      accuracy, and supporting data-driven clinical decisions.
+    </p>
+  </div>
+
+  <!-- MISSION + TECHNOLOGY -->
+  <div class="about-section">
+
+    <div class="about-card">
+      <h3>Our Mission</h3>
+      <p>
+        Our mission is to bridge the gap between clinical practice and artificial
+        intelligence by providing reliable, interpretable, and ethically designed
+        decision-support tools that enhance — not replace — medical expertise.
+      </p>
+    </div>
+
+    <div class="about-card">
+      <h3>Technology & Approach</h3>
+      <p>
+        Medica leverages machine learning models, structured clinical data, and
+        evidence-based methodologies to generate predictive insights while
+        maintaining transparency, security, and clinical responsibility.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- VALUES -->
+  <div class="about-values">
+    <h2>What We Stand For</h2>
+    <ul>
+      <li>✔ Clinical safety and ethical AI implementation</li>
+      <li>✔ Data-driven insights with human oversight</li>
+      <li>✔ Transparency, accountability, and explainability</li>
+      <li>✔ Supporting healthcare professionals, not replacing them</li>
+    </ul>
+  </div>
+
+</div>
+
+{% include "layout/footer.html" %}
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clinical Risk Assessment | Medica</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <style>
+    .predict-container {
+      padding: 60px 20px;
+      background: #f6f9fd;
+      min-height: 100vh;
+    }
+
+    .predict-card {
+      max-width: 960px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 42px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+
+    .predict-header {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .predict-header img {
+      width: 72px;
+      border-radius: 12px;
+    }
+
+    .predict-header h2 {
+      margin: 0;
+      color: #0b5ed7;
+    }
+
+    .predict-header p {
+      margin-top: 6px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .section-title {
+      margin: 30px 0 14px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0b5ed7;
+    }
+
+    .predict-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .predict-form input,
+    .predict-form select {
+      padding: 13px 14px;
+      border-radius: 9px;
+      border: 1px solid #cfd6e0;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .predict-form select:invalid {
+      color: #888;
+    }
+
+    .predict-form button {
+      grid-column: 1 / -1;
+      margin-top: 22px;
+      padding: 15px;
+      background: #0b5ed7;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .predict-form button:hover {
+      background: #084298;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 35px;
+      background: #f8fbff;
+      padding: 26px;
+      border-radius: 14px;
+      border-left: 5px solid #0b5ed7;
+    }
+
+    .risk-low { color: #1e7e34; font-weight: 600; }
+    .risk-moderate { color: #ff9800; font-weight: 600; }
+    .risk-high { color: #d32f2f; font-weight: 600; }
+  </style>
+</head>
+
+<body>
+
+{% include "layout/header.html" %}
+
+<div class="predict-container">
+  <div class="predict-card">
+
+    <div class="predict-header">
+      <img src="/static/images/image3.jpg" alt="Clinical Assessment">
+      <div>
+        <h2>Clinical Risk Assessment</h2>
+        <p>
+          Enter patient clinical indicators to estimate mortality risk
+          and compare treatment-aware outcomes using AI models.
+        </p>
+      </div>
+    </div>
+
+    <!-- Patient info (NOT sent to ML) -->
+    <div class="section-title">Patient Information</div>
+    <div class="predict-form">
+      <input placeholder="Patient Name">
+      <input placeholder="Phone Number">
+      <input placeholder="Address">
+    </div>
+
+    <!-- Clinical data (sent to model) -->
+    <div class="section-title">Clinical Indicators</div>
+
+    <form id="predictForm" class="predict-form">
+
+      <input type="number" name="anchor_age" placeholder="Age (years)" min="0" max="120" required>
+
+      <select name="gender" required>
+        <option value="" disabled selected>Gender</option>
+        <option value="1">Male</option>
+        <option value="0">Female</option>
+      </select>
+
+      <select name="diabetes" required>
+        <option value="" disabled selected>Diabetes</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <select name="hypertension" required>
+        <option value="" disabled selected>Hypertension</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <select name="cardiac" required>
+        <option value="" disabled selected>Cardiac Disease</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <!-- ✅ MISSING FIELD ADDED -->
+      <select name="pneumonia" required>
+        <option value="" disabled selected>Pneumonia</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <select name="kidney_failure" required>
+        <option value="" disabled selected>Kidney Failure</option>
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+
+      <input name="mean_creatinine" placeholder="Mean Creatinine (mg/dL)" required>
+      <input name="mean_hemoglobin" placeholder="Mean Hemoglobin (g/dL)" required>
+      <input name="mean_potassium" placeholder="Mean Potassium (mmol/L)" required>
+      <input name="mean_sodium" placeholder="Mean Sodium (mmol/L)" required>
+      <input name="mean_white_blood_cells" placeholder="Mean WBC (×10³/µL)" required>
+
+      <button type="submit">Analyze Risk</button>
+    </form>
+
+    <div id="result" class="result-box"></div>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 Medica – Clinical Decision Support System
+</footer>
+
+<script>
+document.getElementById("predictForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const data = Object.fromEntries(new FormData(this).entries());
+  const resultBox = document.getElementById("result");
+
+  try {
+    const res = await fetch("/predict/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text);
+    }
+
+    const r = await res.json();
+
+    let riskClass = "risk-low";
+    if (r.tier === "MODERATE") riskClass = "risk-moderate";
+    if (r.tier === "HIGH") riskClass = "risk-high";
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+      <h3>Prediction Result</h3>
+      <p>Overall Risk Score: <strong>${r.risk}</strong></p>
+      <p>Risk Tier: <span class="${riskClass}">${r.tier}</span></p>
+      <hr>
+      <p><strong>Treatment Comparison Based On Risk Tier</strong></p>
+      <p>No Antibiotic → Risk: ${r.treatment.no_antibiotic}</p>
+      <p>With Antibiotic → Risk: ${r.treatment.with_antibiotic}</p>
+    `;
+  } catch (err) {
+    console.error(err);
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `<p style="color:red">Error running prediction</p>`;
+  }
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard | Medica</title>
+
+<!-- ✅ IMPORTANT CSS LINK -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+/* PAGE */
+.admin-container{
+  padding:60px 40px;
+  background:#f4f7fc;
+  min-height:100vh;
+}
+
+/* CARD */
+.admin-card{
+  max-width:1200px;
+  margin:auto;
+  background:white;
+  border-radius:20px;
+  padding:40px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.08);
+}
+
+/* GRID */
+.admin-grid{
+  display:flex;
+  align-items:center;
+  gap:40px;
+}
+
+/* LEFT */
+.admin-left{
+  flex:1;
+}
+
+/* RIGHT IMAGE */
+.admin-right{
+  flex:1;
+}
+
+.admin-right img{
+  width:100%;
+  border-radius:18px;
+}
+
+/* TEXT */
+.admin-title{
+  font-size:36px;
+  color:#1f5fd0;
+  margin-bottom:12px;
+}
+
+.admin-desc{
+  color:#555;
+  margin-bottom:30px;
+  line-height:1.6;
+}
+
+/* MENU CARDS */
+.admin-menu-card{
+  background:#eef3fb;
+  padding:22px;
+  border-radius:16px;
+  margin-bottom:18px;
+  border-left:6px solid #1f5fd0;
+}
+
+/* BUTTON */
+.admin-btn{
+  display:block;
+  background:#1f5fd0;
+  color:white;
+  text-decoration:none;
+  padding:16px;
+  border-radius:12px;
+  font-weight:600;
+  font-size:18px;
+  text-align:center;
+  transition:0.3s;
+}
+
+.admin-btn:hover{
+  background:#1649a5;
+}
+
+</style>
+</head>
+
+<body>
+{% include "layout/header.html" %}
+<div class="admin-container">
+
+  <div class="admin-card">
+
+    <div class="admin-grid">
+
+      <!-- LEFT SIDE -->
+      <div class="admin-left">
+
+        <h1 class="admin-title">Admin Control Center</h1>
+
+        <p class="admin-desc">
+          Manage AI models, monitor clinical predictions, and oversee system users.
+          This dashboard provides full administrative visibility across the Medica platform.
+        </p>
+
+        <div class="admin-menu-card">
+          <a href="/admin/models" class="admin-btn">
+            🧠 Models Management
+          </a>
+        </div>
+
+        <div class="admin-menu-card">
+          <a href="/admin/predictions" class="admin-btn">
+            📊 Predictions Monitoring
+          </a>
+        </div>
+
+        <div class="admin-menu-card">
+          <a href="/admin/users" class="admin-btn">
+            👥 Users Management
+          </a>
+        </div>
+
+      </div>
+
+      <!-- RIGHT IMAGE -->
+      <div class="admin-right">
+        <img src="{{ url_for('static', filename='images/image20.png') }}" alt="Admin Dashboard">
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f8fbff;
+  color: #333;
+}
+
+/* SECTION */
+.doctors {
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* PAGE HEADER */
+/* IMPROVED PAGE HEADER */
+.doctors-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.doctors-header-inner {
+  text-align: center;
+  max-width: 820px;
+  padding: 40px 30px;
+  background: linear-gradient(180deg, #f4f8ff, #ffffff);
+  border-radius: 20px;
+  box-shadow: 0 14px 35px rgba(11, 94, 215, 0.08);
+}
+
+.doctors-header-inner h1 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #0b5ed7;
+  margin-bottom: 18px;
+  letter-spacing: -0.5px;
+}
+
+.doctors-header-inner p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.75;
+}
+
+
+.doctors-header h1 {
+  font-size: 42px;
+  color: #0b5ed7;
+  margin-bottom: 14px;
+}
+
+.doctors-header p {
+  font-size: 18px;
+  max-width: 720px;
+  margin: auto;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ===================== */
+/* GRID : 4 CARDS ROW */
+/* ===================== */
+.doctor-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+/* ===================== */
+/* GRID : 3 CARDS ROW */
+/* ===================== */
+.doctor-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1000px;
+  margin: 70px auto 0;
+}
+
+/* CARD */
+.doctor-card {
+  background: #ffffff;
+  padding: 36px 28px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doctor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 60px rgba(11, 94, 215, 0.2);
+}
+
+/* IMAGE */
+.doctor-card img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 18px;
+  border: 4px solid #e6efff;
+}
+
+/* FEATURED */
+.doctor-card.featured img {
+  width: 135px;
+  height: 135px;
+}
+
+.doctor-card.featured h3 {
+  font-size: 20px;
+}
+
+/* NAME */
+.doctor-card h3 {
+  font-size: 18px;
+  color: #0b5ed7;
+  margin-bottom: 6px;
+}
+
+/* ROLE */
+.doctor-card span {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+/* DESCRIPTION */
+.doctor-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .doctor-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .doctor-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .doctor-grid-4,
+  .doctor-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .doctors-header h1 {
+    font-size: 32px;
+  }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>All Predictions | Admin</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+{% include "layout/header.html" %}
+
+<div class="admin-container">
+
+<h2>All User Predictions</h2>
+
+<table class="admin-table">
+
+<thead>
+<tr>
+<th>User Name</th>
+<th>Email</th>
+<th>Risk Score</th>
+<th>Risk Tier</th>
+<th>No Antibiotic</th>
+<th>With Antibiotic</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for record, user in records %}
+<tr>
+<td>{{ user.name }}</td>
+<td>{{ user.email }}</td>
+<td>{{ record.risk_score }}</td>
+<td>{{ record.risk_tier }}</td>
+<td>{{ record.risk_no_antibiotic }}</td>
+<td>{{ record.risk_with_antibiotic }}</td>
+<td>{{ record.created_at.strftime("%d-%m-%Y %H:%M") }}</td>
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</body>
+</html>

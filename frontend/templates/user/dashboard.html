@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Dashboard | Medica</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <style>
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+
+    .history-table th,
+    .history-table td {
+      padding: 14px 16px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    .history-table th {
+      background: #0b5ed7;
+      color: white;
+      font-weight: 600;
+    }
+
+    .risk-low { color: #1e7e34; font-weight: 600; }
+    .risk-moderate { color: #ff9800; font-weight: 600; }
+    .risk-high { color: #d32f2f; font-weight: 600; }
+
+    .empty-history {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8fbff;
+      border-radius: 10px;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+{% include "layout/header.html" %}
+
+<div class="dashboard-container">
+
+  <div class="dashboard-header">
+    <h2>User Dashboard</h2>
+    <p>
+      Welcome to the AI-powered Clinical Decision Support System.  
+      From here, you can assess patient risk and review past predictions.
+    </p>
+  </div>
+
+  <!-- ===== DASHBOARD CARDS ===== -->
+  <div class="dashboard-grid">
+
+    <div class="dashboard-card">
+      <img src="/static/images/image1.jpg" alt="Risk Prediction">
+      <h3>Clinical Risk Prediction</h3>
+      <p>
+        Analyze patient clinical data to estimate mortality risk using
+        an AI-driven clinical model.
+      </p>
+      <a href="/user/predict">Start Risk Prediction</a>
+    </div>
+
+    <div class="dashboard-card">
+      <img src="/static/images/image2.jpg" alt="Prediction History">
+      <h3>Prediction History</h3>
+      <p>
+        Review previous predictions including risk scores and
+        treatment comparisons.
+      </p>
+      <a href="/user/history">View Full History</a>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Medica – AI Clinical Decision Support
+</footer>
+
+</body>
+</html>

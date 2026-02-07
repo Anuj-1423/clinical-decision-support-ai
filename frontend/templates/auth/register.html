@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register | Medica</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- SITE HEADER -->
+{% include "layout/header.html" %}
+
+<div class="auth-bg">
+
+  <div class="auth-card">
+
+    <h2>Create Account</h2>
+    <p class="subtitle">
+      Register to access clinical decision support
+    </p>
+
+    <!-- REGISTER FORM -->
+    <form method="post">
+
+      <input 
+        type="email" 
+        name="email" 
+        placeholder="Email address" 
+        required>
+
+      <input 
+        type="password" 
+        name="password" 
+        placeholder="Password" 
+        required>
+
+      <input 
+        type="password" 
+        name="confirm_password" 
+        placeholder="Confirm password" 
+        required>
+
+      <button type="submit" class="btn-primary">
+        Register
+      </button>
+
+    </form>
+
+    <div class="divider">OR</div>
+
+    <!-- ✅ GOOGLE SIGN-UP (CORRECT WAY) -->
+    <a href="/auth/google" class="btn-google">
+      <img src="/static/images/google.png" alt="Google">
+      <span>Sign up with Google</span>
+    </a>  
+
+
+    <div class="auth-footer">
+      Already have an account?
+      <a href="/auth/login">Sign in</a>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

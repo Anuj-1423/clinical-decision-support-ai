@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Users Analytics | Admin</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+{% include "layout/header.html" %}
+
+<div class="admin-container">
+
+<h2>User Analytics</h2>
+
+<table class="admin-table">
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Total Predictions</th>
+<th>Last Prediction</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for user in users %}
+<tr>
+
+<td>{{ user.name }}</td>
+<td>{{ user.email }}</td>
+
+<td>
+{{ user.total_predictions if user.total_predictions else 0 }}
+</td>
+
+<td>
+{% if user.last_prediction %}
+{{ user.last_prediction.strftime("%d %b %Y %I:%M %p") }}
+{% else %}
+No Predictions
+{% endif %}
+</td>
+
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</body>
+</html>

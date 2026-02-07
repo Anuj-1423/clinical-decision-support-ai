@@ -1,0 +1,25 @@
+<header class="main-header">
+  <div class="logo">
+    <a href="/">Medica</a>
+  </div>
+
+  
+  <nav class="nav-links">
+    <a href="/">Home</a>
+    <a href="/services">Services</a>
+    <a href="/doctors">Doctors</a>
+    <a href="/about">About</a>
+    
+
+    {% if session.get("role") == "admin" %}
+      <a href="/admin/dashboard">Dashboard</a>
+      <a href="/auth/logout">Logout</a>
+    {% elif session.get("role") == "user" %}
+      <a href="/user/dashboard">Dashboard</a>
+      <a href="/user/profile">Profile</a>
+      <a href="/auth/logout">Logout</a>
+    {% else %}
+      <a href="/auth/login">Login</a>
+    {% endif %}
+  </nav>
+</header>

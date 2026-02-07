@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Register | Medica</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+{% include "layout/header.html" %}
+
+<div class="auth-bg">
+  <div class="auth-card">
+    <h2>User Registration</h2>
+
+    <form method="post">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+
+      <button class="btn-primary" type="submit">
+        Register
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account?
+      <a href="/auth/login/user">Login</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

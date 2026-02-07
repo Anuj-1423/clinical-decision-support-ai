@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Models | Medica Admin</title>
+
+<link rel="stylesheet" href="/static/css/style.css">
+
+<style>
+
+.page-container{
+  padding:60px 20px;
+  background:#f6f9fd;
+  min-height:100vh;
+}
+
+.card{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.08);
+}
+
+.section-title{
+  color:#0b5ed7;
+  margin-bottom:20px;
+}
+
+.model-box{
+  border-left:5px solid #0b5ed7;
+  background:#f8fbff;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+.tech-badge{
+  display:inline-block;
+  background:#e3ecff;
+  padding:6px 12px;
+  border-radius:8px;
+  margin:5px;
+  font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+{% include "layout/header.html" %}
+
+<div class="page-container">
+
+<div class="card">
+
+<h2 class="section-title">AI Models & Technology Stack</h2>
+
+<!-- ================= MODEL 1 ================= -->
+<div class="model-box">
+<h3>Phase-1 Clinical Risk Prediction Model</h3>
+
+<p>
+Predicts patient mortality risk using structured clinical indicators.
+</p>
+
+<ul>
+<li>Algorithm: Logistic Regression</li>
+<li>Input: Lab + Comorbidity Features</li>
+<li>Output: Risk Probability + Risk Tier</li>
+<li>Purpose: Early Risk Stratification</li>
+</ul>
+
+</div>
+
+<!-- ================= MODEL 2 ================= -->
+<div class="model-box">
+<h3>Phase-2 Treatment Aware Outcome Model</h3>
+
+<p>
+Simulates outcome probability based on treatment scenario.
+</p>
+
+<ul>
+<li>Algorithm: Logistic Regression (Treatment Conditional)</li>
+<li>Input: Scaled Clinical Features + Treatment Flag</li>
+<li>Output: Risk With / Without Antibiotic</li>
+<li>Purpose: Clinical Decision Support</li>
+</ul>
+
+</div>
+
+<hr style="margin:30px 0">
+
+<h3 class="section-title">Technology Stack</h3>
+
+<div>
+<span class="tech-badge">Python</span>
+<span class="tech-badge">Flask</span>
+<span class="tech-badge">Scikit-Learn</span>
+<span class="tech-badge">Pandas</span>
+<span class="tech-badge">NumPy</span>
+<span class="tech-badge">SQLAlchemy</span>
+<span class="tech-badge">SQLite / MySQL</span>
+<span class="tech-badge">HTML5</span>
+<span class="tech-badge">CSS3</span>
+<span class="tech-badge">JavaScript</span>
+</div>
+
+</div>
+</div>
+
+<div class="page-content">
+  <!-- page content -->
+</div>
+
+{% include "layout/footer.html" %}
+
+</body>
+
+</body>
+</html>
