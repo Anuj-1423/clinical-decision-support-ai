@@ -1,8 +1,155 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>All Predictions | Admin</title>
 <link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .admin-container {
+    padding: 60px 24px;
+    background: #f4f7ff;
+    min-height: 100vh;
+  }
+
+  .admin-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 28px;
+    border-bottom: 2px solid rgba(11, 94, 215, 0.12);
+    padding-bottom: 18px;
+  }
+
+  .admin-header h2 {
+    color: #0b5ed7;
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: 0.3px;
+  }
+
+  .admin-header p {
+    margin: 0;
+    color: #475569;
+    font-size: 15px;
+    max-width: 640px;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.08);
+  }
+
+  .admin-table thead th {
+    text-align: left;
+    padding: 18px 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e7f0ff 0%, #eef5ff 100%);
+    color: #0b5ed7;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+    white-space: nowrap;
+  }
+
+  .admin-table td {
+    padding: 16px 22px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    vertical-align: middle;
+    font-size: 14px;
+    color: #334155;
+    white-space: nowrap;
+  }
+
+  .admin-table tbody tr {
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+
+  .admin-table tbody tr:hover {
+    background: #f8fbff;
+    transform: translateY(-1px);
+  }
+
+  .admin-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .risk-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 96px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-size: 12px;
+  }
+
+  .risk-high { background: #d32f2f; }
+  .risk-moderate { background: #f59e0b; }
+  .risk-low { background: #1e7e34; }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin-top: 18px;
+    padding-bottom: 6px;
+  }
+
+  @media (max-width: 780px) {
+    .admin-container {
+      padding: 40px 16px;
+    }
+
+    .admin-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .admin-table thead {
+      display: none;
+    }
+
+    .admin-table {
+      box-shadow: none;
+      border: none;
+    }
+
+    .admin-table tr {
+      display: block;
+      margin-bottom: 18px;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .admin-table td {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .admin-table td::before {
+      content: attr(data-label);
+      font-weight: 700;
+      color: #0b5ed7;
+      width: 48%;
+      flex-shrink: 0;
+    }
+
+    .admin-table td:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -10,9 +157,15 @@
 
 <div class="admin-container">
 
-<h2>All User Predictions</h2>
+  <div class="admin-header">
+    <div>
+      <h2>All User Predictions</h2>
+      <p>Monitor summary risk results and treatment outcomes for every prediction submitted by users.</p>
+    </div>
+  </div>
 
-<table class="admin-table">
+  <div class="table-wrapper">
+  <table class="admin-table">
 
 <thead>
 <tr>
@@ -30,13 +183,17 @@
 
 {% for record, user in records %}
 <tr>
-<td>{{ user.name }}</td>
-<td>{{ user.email }}</td>
-<td>{{ record.risk_score }}</td>
-<td>{{ record.risk_tier }}</td>
-<td>{{ record.risk_no_antibiotic }}</td>
-<td>{{ record.risk_with_antibiotic }}</td>
-<td>{{ record.created_at.strftime("%d-%m-%Y %H:%M") }}</td>
+<td data-label="User Name">{{ user.name }}</td>
+<td data-label="Email">{{ user.email }}</td>
+<td data-label="Risk Score">{{ record.risk_score }}</td>
+<td data-label="Risk Tier">
+  <span class="risk-badge {% if record.risk_tier == 'HIGH' %}risk-high{% elif record.risk_tier == 'MODERATE' %}risk-moderate{% else %}risk-low{% endif %}">
+    {{ record.risk_tier }}
+  </span>
+</td>
+<td data-label="No Antibiotic">{{ record.risk_no_antibiotic }}</td>
+<td data-label="With Antibiotic">{{ record.risk_with_antibiotic }}</td>
+<td data-label="Date">{{ record.created_at.strftime("%d-%m-%Y %H:%M") }}</td>
 </tr>
 {% endfor %}
 
@@ -45,6 +202,8 @@
 </table>
 
 </div>
+
+{% include "layout/footer.html" %}
 
 </body>
 </html>

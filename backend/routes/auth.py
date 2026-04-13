@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from backend.extensions import oauth
 from backend.database import db
 import secrets
-from flask import session, redirect, url_for
 
 from backend.models.user import User
 from backend.services.auth import hash_password, verify_password
@@ -89,13 +88,6 @@ def user_login():
 
     return render_template("auth/user_login.html")
 
-
-
-import secrets
-from flask import Blueprint, render_template, request, redirect, url_for, session
-from database import db
-from backend.models.user import User
-from backend.extensions import oauth
 
 
 # ===============================

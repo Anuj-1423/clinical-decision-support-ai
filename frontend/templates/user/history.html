@@ -1,8 +1,164 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prediction History | Medica</title>
   <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    /* Prediction history table styling */
+    .prediction-table-wrapper {
+      margin-top: 20px;
+      border-radius: 16px;
+      overflow: auto;
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+      border: 1px solid #e5eaf4;
+    }
+
+    .prediction-analysis {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .prediction-card {
+      background: #ffffff;
+      padding: 22px 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(14, 83, 183, 0.06);
+      border: 1px solid rgba(11, 94, 215, 0.08);
+    }
+
+    .prediction-card h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      color: #0b5ed7;
+    }
+
+    .prediction-card p {
+      margin: 0;
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .prediction-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .prediction-table thead {
+      background: linear-gradient(135deg, #0b5ed7 0%, #3f79f8 100%);
+      color: #ffffff;
+    }
+
+    .prediction-table th {
+      padding: 16px 18px;
+      text-align: left;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      border-bottom: 1px solid rgba(255,255,255,0.24);
+      white-space: nowrap;
+    }
+
+    .prediction-table tbody tr {
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .prediction-table tbody tr:hover {
+      background: #f4f8ff;
+      transform: translateY(-1px);
+    }
+
+    .prediction-table td {
+      padding: 16px 18px;
+      color: #334155;
+      border-bottom: 1px solid #eef2f7;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .prediction-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .prediction-table td[data-label="Risk Tier"] span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .risk-high { background: #d32f2f; }
+    .risk-moderate { background: #f59e0b; }
+    .risk-low { background: #1e7e34; }
+
+    .empty-history {
+      padding: 30px 22px;
+      text-align: center;
+      background: #f5f8ff;
+      border-radius: 14px;
+      color: #62748c;
+      font-size: 15px;
+    }
+
+    @media (max-width: 1024px) {
+      .prediction-table {
+        min-width: 700px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .prediction-table-wrapper {
+        min-width: 100%;
+      }
+
+      .prediction-table {
+        min-width: 640px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: 0 10px;
+      }
+
+      .prediction-analysis {
+        grid-template-columns: 1fr;
+      }
+
+      .prediction-table-wrapper {
+        box-shadow: none;
+        border: 1px solid #d8dee8;
+      }
+
+      .prediction-table {
+        min-width: 100%;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .prediction-table-wrapper {
+        border-radius: 12px;
+      }
+
+      .prediction-table th,
+      .prediction-table td {
+        padding: 12px 14px;
+      }
+
+      .prediction-table {
+        min-width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -18,56 +174,58 @@
     </p>
   </div>
 
-  <!-- TOTAL COUNT -->
-  <div class="dashboard-card" style="margin-bottom:20px;">
-    <h3>Total Predictions</h3>
-    <h1 style="color:#0b5ed7">{{ total_predictions }}</h1>
+  <!-- SUMMARY CARDS -->
+  <div class="prediction-analysis">
+    <div class="prediction-card">
+      <h3>Total Predictions</h3>
+      <p>{{ total_predictions }} completed risk assessments</p>
+    </div>
+
+    <div class="prediction-card">
+      <h3>View Type</h3>
+      <p>Detailed table with risk tier badges for easy review.</p>
+    </div>
   </div>
 
   <!-- TABLE -->
-  <div class="dashboard-card">
-
-    {% if records %}
-
-    <table style="width:100%; border-collapse: collapse;">
-      <thead>
-        <tr style="background:#0b5ed7; color:white;">
-          <th style="padding:10px;">Date</th>
-          <th>Risk Score</th>
-          <th>Risk Tier</th>
-          <th>No Antibiotic</th>
-          <th>With Antibiotic</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {% for r in records %}
-        <tr style="border-bottom:1px solid #eee;">
-          <td style="padding:10px;">
-            {{ r.created_at.strftime("%d %b %Y %H:%M") }}
-          </td>
-          <td>{{ r.risk_score }}</td>
-          <td>
-            {% if r.risk_tier == "HIGH" %}
-              <span style="color:red;">{{ r.risk_tier }}</span>
-            {% elif r.risk_tier == "MODERATE" %}
-              <span style="color:orange;">{{ r.risk_tier }}</span>
-            {% else %}
-              <span style="color:green;">{{ r.risk_tier }}</span>
-            {% endif %}
-          </td>
-          <td>{{ r.risk_no_antibiotic }}</td>
-          <td>{{ r.risk_with_antibiotic }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-    {% else %}
-      <p>No predictions found.</p>
-    {% endif %}
-
-  </div>
+  {% if records %}
+    <div class="prediction-table-wrapper">
+      <table class="prediction-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Risk Score</th>
+            <th>Risk Tier</th>
+            <th>No Antibiotic</th>
+            <th>With Antibiotic</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in records %}
+          <tr>
+            <td data-label="Date">{{ r.created_at.strftime("%d %b %Y %H:%M") }}</td>
+            <td data-label="Risk Score">{{ r.risk_score }}</td>
+            <td data-label="Risk Tier">
+              {% if r.risk_tier == "HIGH" %}
+                <span style="color:#d32f2f; font-weight: 600;">{{ r.risk_tier }}</span>
+              {% elif r.risk_tier == "MODERATE" %}
+                <span style="color:#ff9800; font-weight: 600;">{{ r.risk_tier }}</span>
+              {% else %}
+                <span style="color:#1e7e34; font-weight: 600;">{{ r.risk_tier }}</span>
+              {% endif %}
+            </td>
+            <td data-label="No Antibiotic">{{ r.risk_no_antibiotic }}</td>
+            <td data-label="With Antibiotic">{{ r.risk_with_antibiotic }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-history">
+      <p>📋 No predictions found.</p>
+    </div>
+  {% endif %}
 
 </div>
 
@@ -75,5 +233,6 @@
   © 2026 Medica – AI Clinical Decision Support
 </footer>
 
+<script src="/static/js/main.js"></script>
 </body>
 </html>

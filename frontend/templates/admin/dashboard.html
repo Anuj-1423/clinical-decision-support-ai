@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin Dashboard | Medica</title>
 
 <!-- ✅ IMPORTANT CSS LINK -->
@@ -88,6 +89,42 @@
   background:#1649a5;
 }
 
+/* RESPONSIVE */
+@media (max-width: 940px) {
+  .admin-container {
+    padding: 40px 18px;
+  }
+
+  .admin-card {
+    padding: 28px;
+  }
+
+  .admin-grid {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .admin-right img {
+    max-height: 340px;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 520px) {
+  .admin-title {
+    font-size: 30px;
+  }
+
+  .admin-desc {
+    font-size: 15px;
+  }
+
+  .admin-btn {
+    font-size: 16px;
+    padding: 14px;
+  }
+}
+
 </style>
 </head>
 
@@ -139,6 +176,8 @@
   </div>
 
 </div>
+
+{% include "layout/footer.html" %}
 
 </body>
 </html>

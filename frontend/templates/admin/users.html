@@ -1,8 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Users Analytics | Admin</title>
 <link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .admin-container {
+    padding: 60px 24px;
+    background: #f6f9fd;
+    min-height: 100vh;
+  }
+
+  .admin-container h2 {
+    color: #0b5ed7;
+    margin-bottom: 24px;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+  }
+
+  .admin-table thead th {
+    text-align: left;
+    padding: 16px 18px;
+    font-weight: 600;
+    background: #f1f5ff;
+    color: #0b5ed7;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+  }
+
+  .admin-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    vertical-align: middle;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .admin-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 780px) {
+    .admin-container {
+      padding: 40px 16px;
+    }
+
+    .admin-table thead {
+      display: none;
+    }
+
+    .admin-table tr {
+      display: block;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.05);
+    }
+
+    .admin-table td {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .admin-table td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: #0b5ed7;
+      width: 45%;
+    }
+
+    .admin-table td:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -13,30 +98,31 @@
 
 <h2>User Analytics</h2>
 
-<table class="admin-table">
+<div class="table-wrapper">
+  <table class="admin-table">
 
-<thead>
-<tr>
-<th>Name</th>
-<th>Email</th>
-<th>Total Predictions</th>
-<th>Last Prediction</th>
-</tr>
-</thead>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Total Predictions</th>
+        <th>Last Prediction</th>
+      </tr>
+    </thead>
 
 <tbody>
 
 {% for user in users %}
 <tr>
 
-<td>{{ user.name }}</td>
-<td>{{ user.email }}</td>
+<td data-label="Name">{{ user.name }}</td>
+<td data-label="Email">{{ user.email }}</td>
 
-<td>
+<td data-label="Total Predictions">
 {{ user.total_predictions if user.total_predictions else 0 }}
 </td>
 
-<td>
+<td data-label="Last Prediction">
 {% if user.last_prediction %}
 {{ user.last_prediction.strftime("%d %b %Y %I:%M %p") }}
 {% else %}
@@ -49,7 +135,10 @@ No Predictions
 
 </tbody>
 
-</table>
+  </table>
+</div>
+
+{% include "layout/footer.html" %}
 
 </div>
 

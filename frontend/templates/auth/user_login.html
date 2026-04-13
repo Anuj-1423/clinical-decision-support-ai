@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>User Login | Medica</title>
 
   <link rel="stylesheet" href="/static/css/style.css">
@@ -23,8 +24,9 @@
 
     .auth-card {
       background: #fff;
-      width: 420px;
-      padding: 40px;
+      width: min(450px, 92%);
+      max-width: 480px;
+      padding: 36px;
       border-radius: 18px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.12);
       text-align: center;
@@ -175,6 +177,8 @@
 
   </div>
 </div>
+
+{% include "layout/footer.html" %}
 
 </body>
 </html>

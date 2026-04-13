@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Models | Medica Admin</title>
 
 <link rel="stylesheet" href="/static/css/style.css">
@@ -43,6 +44,31 @@
   border-radius:8px;
   margin:5px;
   font-size:13px;
+}
+
+@media (max-width: 820px) {
+  .page-container {
+    padding: 40px 18px;
+  }
+
+  .card {
+    padding: 32px;
+  }
+
+  .model-box {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .section-title {
+    font-size: 24px;
+  }
+
+  .tech-badge {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
 }
 
 </style>
@@ -112,13 +138,7 @@ Simulates outcome probability based on treatment scenario.
 </div>
 </div>
 
-<div class="page-content">
-  <!-- page content -->
-</div>
-
 {% include "layout/footer.html" %}
-
-</body>
 
 </body>
 </html>
